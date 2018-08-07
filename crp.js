@@ -12,24 +12,35 @@ if(!argOne){
 	console.log("--project-name <Enter Project Name>")
 } else if (process.argv.indexOf("--project-name") > -1 && process.argv[process.argv.indexOf("--project-name") + 1]) {
 	exec('mkdir ' + argTwo, (err, stdout, stderr) => {
-		if (err) {
+		if (stderr) {
+			console.error("Error Creating Project Main Directory: " + stderr)
 		    return;
 		}
-		exec('cp -r ./lesson/* ./' + argTwo + "/", (err, stdout, stderr) => {
-			if (err) {
+		exec('mkdir ./' + argTwo + '/app ' + argTwo + '/public' , (err, stdout, stderrTwo) => {
+			if (stderrTwo) {
+				console.error("Error creating main folders: " + stderrTwo)
 			    return;
 			}
-			log(chalk.red.bold('Loading Node Modules'));
-			exec('cd ./' + argTwo + "/; npm i;", (err, stdout, stderr) => {
-				if (err) {
+			exec('mkdir ./' + argTwo + '/app/components ' + argTwo + '/public/css '  + argTwo + '/public/images', (err, stdout, stderrThree) => {
+				if (stderrTwo) {
+					console.error("Error creating subfolders: " + stderrThree)
 				    return;
 				}
-				if(stdout){
-					log(chalk.blue.bold('Node Modules Loaded'))
-				}
 			});
+			// log(chalk.red.bold('Loading Node Modules'));
+			// exec('cd ./' + argTwo + "/; npm i;", (err, stdout, stderrThree) => {
+			// 	if (stderrThree) {
+			// 		console.error("Error Loading Node Modules: " + stderrThree)
+			// 	    return;
+			// 	}
+			// 	if(stdout){
+			// 		log(chalk.blue.bold('Node Modules Loaded'))
+			// 	}
+			// });
 		});
 	});
 } else if (process.argv.indexOf("--project-name") > -1 && !argTwo){
+	console.log("--project-name <Enter Project Name>")
+} else if (process.argv.indexOf("--project-name") == -1){
 	console.log("--project-name <Enter Project Name>")
 }
