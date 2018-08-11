@@ -159,9 +159,9 @@ if(!argOne){
 	const child = spawn('node', ['server.js']);
 	const childTwo = spawn('webpack', ['-w']);
 	child.stdout.on('data', function (data) {
-	  console.log(data.toString());
+	  log(chalk.green(data.toString()));
 	});
 	childTwo.stdout.on('data', function (data) {
-	  console.log(data.toString());
+	  log(chalk.magenta(data.toString()));
 	});
 }
